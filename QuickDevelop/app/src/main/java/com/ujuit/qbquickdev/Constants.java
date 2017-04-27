@@ -9,7 +9,9 @@ import com.anthole.quickdev.invoke.FileInvoke;
 public class Constants {
 
 
-
+    public final static class Tip {
+        public final static String SLOW_NET = "网络不给力";
+    }
 
     public static final class File {
 

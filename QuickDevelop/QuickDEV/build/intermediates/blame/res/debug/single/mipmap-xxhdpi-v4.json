@@ -4,6 +4,10 @@
         "source": "E:\\workspace\\android_as\\QuickDevelop\\QuickDEV\\src\\main\\res\\mipmap-xxhdpi\\ic_action_discard.png"
     },
     {
+        "merged": "D:\\Program Files\\Android\\worksapce\\gitProject\\QuickDevelop\\QuickDevelop\\QuickDEV\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi-v4\\btn_selected.png",
+        "source": "D:\\Program Files\\Android\\worksapce\\gitProject\\QuickDevelop\\QuickDevelop\\QuickDEV\\src\\main\\res\\mipmap-xxhdpi\\btn_selected.png"
+    },
+    {
         "merged": "E:\\workspace\\android_as\\QuickDevelop\\QuickDEV\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi-v4\\btn_selected.png",
         "source": "E:\\workspace\\android_as\\QuickDevelop\\QuickDEV\\src\\main\\res\\mipmap-xxhdpi\\btn_selected.png"
     },
@@ -12,12 +16,36 @@
         "source": "E:\\workspace\\android_as\\QuickDevelop\\QuickDEV\\src\\main\\res\\mipmap-xxhdpi\\default_check.png"
     },
     {
+        "merged": "D:\\Program Files\\Android\\worksapce\\gitProject\\QuickDevelop\\QuickDevelop\\QuickDEV\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi-v4\\asv.png",
+        "source": "D:\\Program Files\\Android\\worksapce\\gitProject\\QuickDevelop\\QuickDevelop\\QuickDEV\\src\\main\\res\\mipmap-xxhdpi\\asv.png"
+    },
+    {
+        "merged": "D:\\Program Files\\Android\\worksapce\\gitProject\\QuickDevelop\\QuickDevelop\\QuickDEV\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi-v4\\default_check.png",
+        "source": "D:\\Program Files\\Android\\worksapce\\gitProject\\QuickDevelop\\QuickDevelop\\QuickDEV\\src\\main\\res\\mipmap-xxhdpi\\default_check.png"
+    },
+    {
+        "merged": "D:\\Program Files\\Android\\worksapce\\gitProject\\QuickDevelop\\QuickDevelop\\QuickDEV\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi-v4\\ic_action_discard.png",
+        "source": "D:\\Program Files\\Android\\worksapce\\gitProject\\QuickDevelop\\QuickDevelop\\QuickDEV\\src\\main\\res\\mipmap-xxhdpi\\ic_action_discard.png"
+    },
+    {
+        "merged": "D:\\Program Files\\Android\\worksapce\\gitProject\\QuickDevelop\\QuickDevelop\\QuickDEV\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi-v4\\asy.png",
+        "source": "D:\\Program Files\\Android\\worksapce\\gitProject\\QuickDevelop\\QuickDevelop\\QuickDEV\\src\\main\\res\\mipmap-xxhdpi\\asy.png"
+    },
+    {
+        "merged": "D:\\Program Files\\Android\\worksapce\\gitProject\\QuickDevelop\\QuickDevelop\\QuickDEV\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi-v4\\ic_titlebar_back.png",
+        "source": "D:\\Program Files\\Android\\worksapce\\gitProject\\QuickDevelop\\QuickDevelop\\QuickDEV\\src\\main\\res\\mipmap-xxhdpi\\ic_titlebar_back.png"
+    },
+    {
         "merged": "E:\\workspace\\android_as\\QuickDevelop\\QuickDEV\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi-v4\\btn_unselected.png",
         "source": "E:\\workspace\\android_as\\QuickDevelop\\QuickDEV\\src\\main\\res\\mipmap-xxhdpi\\btn_unselected.png"
     },
     {
         "merged": "E:\\workspace\\android_as\\QuickDevelop\\QuickDEV\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi-v4\\asv.png",
         "source": "E:\\workspace\\android_as\\QuickDevelop\\QuickDEV\\src\\main\\res\\mipmap-xxhdpi\\asv.png"
+    },
+    {
+        "merged": "D:\\Program Files\\Android\\worksapce\\gitProject\\QuickDevelop\\QuickDevelop\\QuickDEV\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi-v4\\btn_unselected.png",
+        "source": "D:\\Program Files\\Android\\worksapce\\gitProject\\QuickDevelop\\QuickDevelop\\QuickDEV\\src\\main\\res\\mipmap-xxhdpi\\btn_unselected.png"
     },
     {
         "merged": "E:\\workspace\\android_as\\QuickDevelop\\QuickDEV\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi-v4\\default_error.png",
@@ -30,5 +58,9 @@
     {
         "merged": "E:\\workspace\\android_as\\QuickDevelop\\QuickDEV\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi-v4\\ic_titlebar_back.png",
         "source": "E:\\workspace\\android_as\\QuickDevelop\\QuickDEV\\src\\main\\res\\mipmap-xxhdpi\\ic_titlebar_back.png"
+    },
+    {
+        "merged": "D:\\Program Files\\Android\\worksapce\\gitProject\\QuickDevelop\\QuickDevelop\\QuickDEV\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi-v4\\default_error.png",
+        "source": "D:\\Program Files\\Android\\worksapce\\gitProject\\QuickDevelop\\QuickDevelop\\QuickDEV\\src\\main\\res\\mipmap-xxhdpi\\default_error.png"
     }
 ]

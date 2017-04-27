@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="E:\workspace\android_as\QuickDevelop\QuickDEV\src\main\assets"/></dataSet><dataSet config="release"><source path="E:\workspace\android_as\QuickDevelop\QuickDEV\src\release\assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="D:\Program Files\Android\worksapce\gitProject\QuickDevelop\QuickDevelop\QuickDEV\src\main\assets"/><source path="D:\Program Files\Android\worksapce\gitProject\QuickDevelop\QuickDevelop\QuickDEV\build\generated\assets\shaders\release"/></dataSet><dataSet config="release"><source path="D:\Program Files\Android\worksapce\gitProject\QuickDevelop\QuickDevelop\QuickDEV\src\release\assets"/></dataSet></merger>

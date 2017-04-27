@@ -4,9 +4,6 @@
 
 package com.anthole.quickdev.commonUtils.fileUtils;
 
-import java.io.File;
-import java.util.List;
-
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningTaskInfo;
 import android.content.Context;
@@ -19,8 +16,10 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
 import android.util.Log;
-
 import com.anthole.quickdev.commonUtils.BasicUtils;
+
+import java.io.File;
+import java.util.List;
 
 /**
  * DataBaseUtils
@@ -329,7 +328,7 @@ public class PackageUtils {
      * <li>You should add <strong>android.permission.DELETE_PACKAGES</strong> in manifest, so no need to request root
      * permission, if you are system app.</li>
      * </ul>
-     * 
+     *
      * @param context file path of package
      * @param packageName package name of app
      * @param isKeepData whether keep the data and cache directories around after package removal
@@ -369,7 +368,7 @@ public class PackageUtils {
 
     /**
      * whether context is system application
-     * 
+     *
      * @param context
      * @return
      */
@@ -383,7 +382,7 @@ public class PackageUtils {
 
     /**
      * whether packageName is system application
-     * 
+     *
      * @param context
      * @param packageName
      * @return
@@ -398,7 +397,7 @@ public class PackageUtils {
 
     /**
      * whether packageName is system application
-     * 
+     *
      * @param packageManager
      * @param packageName
      * @return <ul>
@@ -429,7 +428,7 @@ public class PackageUtils {
      * <strong>Attentions:</strong>
      * <li>You should add <strong>android.permission.GET_TASKS</strong> in manifest</li>
      * </ul>
-     * 
+     *
      * @param context
      * @param packageName
      * @return if params error or task stack is null, return null, otherwise retun whether the app is on the top of
@@ -455,7 +454,7 @@ public class PackageUtils {
 
     /**
      * get app version code
-     * 
+     *
      * @param context
      * @return
      */
@@ -478,9 +477,33 @@ public class PackageUtils {
     }
 
     /**
+     * get app version code
+     *
+     * @param context
+     * @return
+     */
+    public static String getAppVersionName(Context context) {
+        if (context != null) {
+            PackageManager pm = context.getPackageManager();
+            if (pm != null) {
+                PackageInfo pi;
+                try {
+                    pi = pm.getPackageInfo(context.getPackageName(), 0);
+                    if (pi != null) {
+                        return pi.versionName;
+                    }
+                } catch (NameNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return "";
+    }
+
+    /**
      * get system install location<br/>
      * can be set by System Menu Setting->Storage->Prefered install location
-     * 
+     *
      * @return
      * @see {@link PackageUtils#getInstallLocation()}
      */
@@ -506,7 +529,7 @@ public class PackageUtils {
 
     /**
      * get params for pm install location
-     * 
+     *
      * @return
      */
     private static String getInstallLocationParams() {
@@ -522,7 +545,7 @@ public class PackageUtils {
 
     /**
      * start InstalledAppDetails Activity
-     * 
+     *
      * @param context
      * @param packageName
      */

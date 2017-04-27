@@ -9,12 +9,9 @@ import com.anthole.quickdev.invoke.FileInvoke;
 public class Constants {
 
 
+
+
     public static final class File {
-
-
-
-
-
 
         public static final String baseFolder = FileInvoke.getInstance().getAppDir().getPath();
         private static String locLogPath = baseFolder + "/log/";

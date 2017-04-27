@@ -1,5 +1,6 @@
 package com.ujuit.qbquickdev;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.support.multidex.MultiDex;
@@ -20,6 +21,12 @@ import java.util.HashMap;
  */
 public class BaseApplication extends QApplication {
 
+    public static Context applicationContext;
+    private static BaseApplication instance;
+
+    public static BaseApplication getInstance() {
+        return instance;
+    }
     @Override
     public void onCreate() {
         super.onCreate();
@@ -29,6 +36,8 @@ public class BaseApplication extends QApplication {
         Log.e("手机信息++BRAND", Build.BRAND);
         Log.e("手机信息++PRODUCT", Build.PRODUCT);
 
+        applicationContext = this;
+        instance = this;
         MultiDex.install(this);//64k问题处理，谷歌的方法
 
         //崩溃处理
@@ -49,6 +58,8 @@ public class BaseApplication extends QApplication {
                 startActivity(intent);
             }
         });
+
+
     }
 
     //将崩溃日志保存在本地

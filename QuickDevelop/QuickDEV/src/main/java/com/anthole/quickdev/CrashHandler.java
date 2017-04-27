@@ -6,18 +6,24 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
-import android.os.Environment;
 import android.os.Looper;
+import android.widget.Toast;
 import com.anthole.quickdev.commonUtils.BasicUtils;
-import com.anthole.quickdev.commonUtils.T;
+import com.anthole.quickdev.commonUtils.fileUtils.PackageUtils;
 import com.anthole.quickdev.commonUtils.logUtils.Logs;
-import com.anthole.quickdev.invoke.FileInvoke;
 
-import java.io.*;
+import java.io.PrintWriter;
+import java.io.Serializable;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.lang.reflect.Field;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -63,7 +69,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
      * @param context
      * @param crashFilePath
      */
-    public void init(Context context, String crashFilePath, String showMessage, OnCrashListener onCrashListener) {
+    public void init(Context context, String crashFilePath, String showMessage,OnCrashListener onCrashListener) {
         mContext = context;
 
         mDefaultHandler = Thread.getDefaultUncaughtExceptionHandler();
@@ -82,8 +88,8 @@ public class CrashHandler implements UncaughtExceptionHandler {
      *
      * @param context
      */
-    public void init(Context context, OnCrashListener onCrashListener) {
-        init(context, "/crash/", onCrashListener);
+    public void init(Context context,OnCrashListener onCrashListener) {
+        init(context, "/crash/",onCrashListener);
     }
 
     /**
@@ -91,7 +97,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
      *
      * @param context
      */
-    public void init(Context context, String crashFilePath, OnCrashListener onCrashListener) {
+    public void init(Context context, String crashFilePath,OnCrashListener onCrashListener) {
         init(context, crashFilePath, "", onCrashListener);
     }
 
@@ -101,7 +107,6 @@ public class CrashHandler implements UncaughtExceptionHandler {
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {
         if (!handleException(ex) && mDefaultHandler != null) {
-
             mDefaultHandler.uncaughtException(thread, ex);
         } else {
             try {
@@ -118,23 +123,41 @@ public class CrashHandler implements UncaughtExceptionHandler {
         if (ex == null) {
             return false;
         }
+
+        if (ex == null) {
+            return false;
+        }
+        //使用Toast来显示异常信息
+        new Thread() {
+            @Override
+            public void run() {
+                Looper.prepare();
+                Toast.makeText(mContext, showMessage, Toast.LENGTH_LONG).show();
+                Looper.loop();
+            }
+        }.start();
+        final QCrashBean qCrashBean = new QCrashBean();
         try {
             // 收集设备参数信息
             collectDeviceInfo(mContext);
+
+            qCrashBean.setVersionName(PackageUtils.getAppVersionName(mContext));
+            qCrashBean.setVersionCode(PackageUtils.getAppVersionCode(mContext)+"");
+            qCrashBean.setExceptionInfo(getCrashInfo(ex));
+            qCrashBean.setIp(getLocalIpAddress());
+
             // 保存日志文件
-            String filemameString = saveCrashInfo2File(ex);
-            Logs.d("filemameString", filemameString);
+//			String filemameString = saveCrashInfo2File(ex);
         } catch (Exception e) {
         } finally {
             new Thread() {
                 @Override
                 public void run() {
                     Looper.prepare();
-                    if (onCrashListener != null) {
-                        onCrashListener.onCrash();
-                    } else {
-                        T.showLong(mContext, showMessage);
-                        QAppManager.getAppManager().AppExit(mContext, false);
+                    if(onCrashListener!=null){
+                        onCrashListener.onCrash(qCrashBean);
+                    }else{
+                        QAppManager.getAppManager().AppExit(mContext,false);
                         PackageManager tmxx = mContext.getPackageManager();
                         Intent intent = tmxx.getLaunchIntentForPackage(mContext
                                 .getPackageName());
@@ -184,20 +207,11 @@ public class CrashHandler implements UncaughtExceptionHandler {
     }
 
     /**
-     * Save Info to files
-     *
+     * 获取异常信息
      * @param ex
-     * @return filename
+     * @return
      */
-    private String saveCrashInfo2File(Throwable ex) {
-
-        StringBuffer sb = new StringBuffer();
-        for (Map.Entry<String, String> entry : infos.entrySet()) {
-            String key = entry.getKey();
-            String value = entry.getValue();
-            sb.append(key + "=" + value + "\n");
-        }
-
+    private String getCrashInfo(Throwable ex){
         Writer writer = new StringWriter();
         PrintWriter printWriter = new PrintWriter(writer);
         ex.printStackTrace(printWriter);
@@ -208,34 +222,80 @@ public class CrashHandler implements UncaughtExceptionHandler {
         }
         printWriter.close();
         String result = writer.toString();
-        sb.append(result);
-        try {
-            long timestamp = System.currentTimeMillis();
-            String time = formatter.format(new Date());
-            String fileName = "crash-" + time + "-" + timestamp + ".log";
-            if (Environment.getExternalStorageState().equals(
-                    Environment.MEDIA_MOUNTED)) {
+        return result;
+    }
 
-                String path =
-                        // StorageUtils.getCacheDirectory(mContext) +
-                        FileInvoke.getInstance().getAppDir()
-                                + (BasicUtils.judgeNotNull(crashFilePath) ? crashFilePath
-                                : "/crash/");
-                Logs.d("path----" + path);
-                File dir = new File(path);
-                if (!dir.exists()) {
-                    dir.mkdirs();
+    public String getLocalIpAddress() {
+        try {
+            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
+                NetworkInterface intf = en.nextElement();
+                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
+                    InetAddress inetAddress = enumIpAddr.nextElement();
+                    if (!inetAddress.isLoopbackAddress()&&inetAddress instanceof Inet4Address) {
+                        return inetAddress.getHostAddress().toString();
+                    }
                 }
-                FileOutputStream fos = new FileOutputStream(path + fileName);
-                fos.write(sb.toString().getBytes());
-                fos.close();
             }
-            return fileName;
-        } catch (Exception e) {
-            Logs.e("an error occured while writing file...", e);
+        } catch (SocketException ex) {
         }
         return null;
     }
+
+
+//	/**
+//	 * Save Info to files
+//	 *
+//	 * @param ex
+//	 * @return filename
+//	 */
+//	private String saveCrashInfo2File(Throwable ex) {
+//
+//		StringBuffer sb = new StringBuffer();
+//		for (Map.Entry<String, String> entry : infos.entrySet()) {
+//			String key = entry.getKey();
+//			String value = entry.getValue();
+//			sb.append(key + "=" + value + "\n");
+//		}
+//
+//		Writer writer = new StringWriter();
+//		PrintWriter printWriter = new PrintWriter(writer);
+//		ex.printStackTrace(printWriter);
+//		Throwable cause = ex.getCause();
+//		while (cause != null) {
+//			cause.printStackTrace(printWriter);
+//			cause = cause.getCause();
+//		}
+//		printWriter.close();
+//		String result = writer.toString();
+//		sb.append(result);
+//		try {
+//			long timestamp = System.currentTimeMillis();
+//			String time = formatter.format(new Date());
+//			String fileName = "crash-" + time + "-" + timestamp + ".log";
+//			if (Environment.getExternalStorageState().equals(
+//					Environment.MEDIA_MOUNTED)) {
+//
+//				String path =
+//				// StorageUtils.getCacheDirectory(mContext) +
+//				FileInvoke.getInstance().getAppDir()
+//						+ (BasicUtils.judgeNotNull(crashFilePath) ? crashFilePath
+//								: "/crash/");
+//				Logs.d("path----" + path);
+//				File dir = new File(path);
+//				if (!dir.exists()) {
+//					dir.mkdirs();
+//				}
+//				FileOutputStream fos = new FileOutputStream(path + fileName);
+//				fos.write(sb.toString().getBytes());
+//				fos.close();
+//			}
+//			return fileName;
+//		} catch (Exception e) {
+//			Logs.e("an error occured while writing file...", e);
+//		}
+//		return null;
+//	}
+
 
     public static class QCrashBean implements Serializable{
         String exceptionInfo;

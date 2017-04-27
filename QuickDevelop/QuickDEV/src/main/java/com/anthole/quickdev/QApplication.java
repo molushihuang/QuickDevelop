@@ -1,17 +1,7 @@
 package com.anthole.quickdev;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.lang.reflect.Field;
-
 import android.app.Application;
-import android.content.pm.ApplicationInfo;
-import android.os.Build;
-
 import com.anthole.quickdev.invoke.FileInvoke;
-
-import dalvik.system.DexClassLoader;
 
 public abstract class QApplication extends Application{
 	

@@ -2,5 +2,5 @@ package com.anthole.quickdev;
 
 public interface OnCrashListener {
 	
-	public void onCrash();
+	public void onCrash(CrashHandler.QCrashBean qCrashBean);
 }

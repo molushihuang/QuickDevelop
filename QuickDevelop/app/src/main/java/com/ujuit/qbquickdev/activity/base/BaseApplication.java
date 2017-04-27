@@ -1,4 +1,4 @@
-package com.ujuit.qbquickdev;
+package com.ujuit.qbquickdev.activity.base;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,8 @@ import com.anthole.quickdev.QAppManager;
 import com.anthole.quickdev.QApplication;
 import com.anthole.quickdev.commonUtils.TimeUtils;
 import com.google.gson.Gson;
+import com.ujuit.qbquickdev.Constants;
+import com.ujuit.qbquickdev.activity.MainActivity;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

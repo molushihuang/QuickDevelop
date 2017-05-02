@@ -11,6 +11,7 @@ import com.ujuit.qbquickdev.R;
 import com.ujuit.qbquickdev.activity.base.BaseActivity;
 import com.ujuit.qbquickdev.adapter.FriendApplyAdapter;
 import com.ujuit.qbquickdev.bean.FriendApplyBean;
+import com.ujuit.qbquickdev.bean.Parser;
 import com.ujuit.qbquickdev.http.AbstractRequest;
 import com.ujuit.qbquickdev.view.PtrMaterialFrameLayout;
 import com.ujuit.qbquickdev.view.requestHelper.PullListHelper;
@@ -65,8 +66,8 @@ public class FriendApplyActivity extends BaseActivity implements FriendApplyAdap
             public List<FriendApplyBean> parseList(String data) {
 
                 String subData = JSONUtils.getString(data, "list", "");
-
-                return null;
+                List<FriendApplyBean> list = Parser.parseFriendApplyList(subData);
+                return list;
             }
         });
         helper.refresh(200);

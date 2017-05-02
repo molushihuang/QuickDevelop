@@ -1,18 +1,14 @@
 package com.ujuit.qbquickdev.activity.base;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
 import android.support.multidex.MultiDex;
 import android.util.Log;
 import com.anthole.quickdev.CrashHandler;
-import com.anthole.quickdev.OnCrashListener;
-import com.anthole.quickdev.QAppManager;
 import com.anthole.quickdev.QApplication;
 import com.anthole.quickdev.commonUtils.TimeUtils;
 import com.google.gson.Gson;
 import com.ujuit.qbquickdev.Constants;
-import com.ujuit.qbquickdev.activity.MainActivity;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -43,23 +39,23 @@ public class BaseApplication extends QApplication {
         MultiDex.install(this);//64k问题处理，谷歌的方法
 
         //崩溃处理
-        CrashHandler.getInstance().init(this, new OnCrashListener() {
-
-            @Override
-            public void onCrash(CrashHandler.QCrashBean crashBean) {
-
-                try {
-                    saveCrashInfo(crashBean);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                //崩溃后跳转到主actitity
-                QAppManager.getAppManager().finishAllActivity();
-                Intent intent = new Intent(BaseApplication.this, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-            }
-        });
+//        CrashHandler.getInstance().init(this, new OnCrashListener() {
+//
+//            @Override
+//            public void onCrash(CrashHandler.QCrashBean crashBean) {
+//
+//                try {
+//                    saveCrashInfo(crashBean);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//                //崩溃后跳转到主actitity
+//                QAppManager.getAppManager().finishAllActivity();
+//                Intent intent = new Intent(BaseApplication.this, MainActivity.class);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(intent);
+//            }
+//        });
 
 
     }
@@ -86,7 +82,7 @@ public class BaseApplication extends QApplication {
 
     @Override
     public String getAppDir() {
-        return "app name";
+        return "appName";
     }
 
 

@@ -98,6 +98,15 @@ public abstract class AbstractRequest implements BaseRequest {
 		request(params, responseHandler);
 	}
 
+	@Override
+	public void requestPage(int page,int page_step, BaseResponseHandler responseHandler) {
+		RequestParams params = getParams();
+		if (params != null) {
+			params.put(PAGE_NUM_KEY, page);
+			params.put(PAGE_STEP_KEY, page_step);
+		}
+		request(params, responseHandler);
+	}
 
 
 }

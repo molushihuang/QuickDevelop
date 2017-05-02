@@ -4,5 +4,9 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <color name="transparent">#00000000</color>
+
     <color name="gray">#7f7f7f</color>
+    <color name="titlebar_bg_black">#262E38</color>
+    <color name="titlebar_tv_title">#ffffff</color>
 </resources>

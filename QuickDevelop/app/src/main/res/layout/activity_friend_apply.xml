@@ -7,10 +7,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
     <com.ujuit.qbquickdev.view.TitleBar
             android:id="@+id/titleBar"
+            app:title_ic_left="@drawable/ic_titlebar_back"
+            app:title_ic_right="@drawable/ic_titlebar_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:title_text_color="@color/white"
+            app:title_text_color_left="@drawable/selector_titlebar_text"
+            app:title_text_color_right="@drawable/selector_titlebar_text"
+            app:title_background="@color/titlebar_bg_black"
             app:title_text="新朋友">
 
     </com.ujuit.qbquickdev.view.TitleBar>

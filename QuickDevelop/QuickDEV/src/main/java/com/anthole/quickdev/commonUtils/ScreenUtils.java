@@ -5,8 +5,11 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
+
+import java.lang.reflect.Method;
 
 /** 
  * 获得屏幕相关的辅助类 
@@ -122,5 +125,36 @@ public class ScreenUtils {
         return bp;  
   
     }
-	
+
+    /**
+     * 当手机含有虚拟按键时，获取虚拟按键的高度
+     *
+     * @param poCotext
+     * @return
+     */
+    public static int getVrtualBtnHeight(Context poCotext) {
+
+        int realHeiht = getDpi((Activity) poCotext);
+        int virvalHeight = realHeiht - getScreenHeight(poCotext);
+        return virvalHeight;
+    }
+
+    public static int getDpi(Activity activity) {
+        Display display = activity.getWindowManager().getDefaultDisplay();
+        DisplayMetrics dm = new DisplayMetrics();
+        int height = 0;
+        @SuppressWarnings("rawtypes")
+        Class c;
+        try {
+            c = Class.forName("android.view.Display");
+            @SuppressWarnings("unchecked")
+            Method method = c.getMethod("getRealMetrics", DisplayMetrics.class);
+            method.invoke(display, dm);
+            height = dm.heightPixels;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return height;
+    }
+
 }

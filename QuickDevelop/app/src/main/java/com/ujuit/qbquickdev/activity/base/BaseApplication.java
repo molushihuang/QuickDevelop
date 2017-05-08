@@ -3,10 +3,10 @@ package com.ujuit.qbquickdev.activity.base;
 import android.content.Context;
 import android.os.Build;
 import android.support.multidex.MultiDex;
-import android.util.Log;
 import com.anthole.quickdev.CrashHandler;
 import com.anthole.quickdev.QApplication;
 import com.anthole.quickdev.commonUtils.TimeUtils;
+import com.example.aaron.library.MLog;
 import com.google.gson.Gson;
 import com.ujuit.qbquickdev.Constants;
 
@@ -29,14 +29,15 @@ public class BaseApplication extends QApplication {
     public void onCreate() {
         super.onCreate();
 
-        Log.e("手机信息++MANUFACTURER", Build.MANUFACTURER);
-        Log.e("手机信息++BOARD", Build.BOARD);
-        Log.e("手机信息++BRAND", Build.BRAND);
-        Log.e("手机信息++PRODUCT", Build.PRODUCT);
-
         applicationContext = this;
         instance = this;
         MultiDex.install(this);//64k问题处理，谷歌的方法
+
+        MLog.init(true);
+        MLog.d("手机信息++MANUFACTURER", Build.MANUFACTURER);
+        MLog.d("手机信息++BOARD", Build.BOARD);
+        MLog.d("手机信息++BRAND", Build.BRAND);
+        MLog.d("手机信息++PRODUCT", Build.PRODUCT);
 
         //崩溃处理
 //        CrashHandler.getInstance().init(this, new OnCrashListener() {

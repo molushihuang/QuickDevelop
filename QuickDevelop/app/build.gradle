@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.ujuitq.qbquickdev"
-        minSdkVersion 14
+        minSdkVersion 21
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -36,4 +36,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile project(':QuickDEV')
     compile 'com.android.support:multidex:1.0.0'
+    compile 'com.yipianfengye:MLog:1.0.0'
 }

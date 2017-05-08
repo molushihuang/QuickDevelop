@@ -2,6 +2,8 @@ package com.anthole.quickdev.commonUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -289,5 +291,40 @@ public class StringUtils {
             }
         }
         return new String(source);
+    }
+
+    //unicode转字符串
+    public static String convert(String utfString){
+        StringBuilder sb = new StringBuilder();
+        int i = -1;
+        int pos = 0;
+
+        while((i=utfString.indexOf("\\u", pos)) != -1){
+            sb.append(utfString.substring(pos, i));
+            if(i+5 < utfString.length()){
+                pos = i+6;
+                sb.append((char)Integer.parseInt(utfString.substring(i+2, i+6), 16));
+            }
+        }
+
+        return sb.toString();
+    }
+
+    //unicode转字符串
+    public static String ascii2native(String ascii) {
+
+        List<String> ascii_s = new ArrayList<String>();
+        String zhengz= "\\\\u[0-9,a-f,A-F]{4}";
+        Pattern p = Pattern.compile(zhengz);
+        Matcher m=p.matcher(ascii);
+        while (m.find()){
+            ascii_s.add(m.group());
+        }
+        for (int i = 0, j = 2; i < ascii_s.size(); i++) {
+            String code = ascii_s.get(i).substring(j, j + 4);
+            char ch = (char) Integer.parseInt(code, 16);
+            ascii = ascii.replace(ascii_s.get(i),String.valueOf(ch));
+        }
+        return ascii;
     }
 }

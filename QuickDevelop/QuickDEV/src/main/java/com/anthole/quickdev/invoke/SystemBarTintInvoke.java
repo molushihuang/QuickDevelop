@@ -12,11 +12,11 @@ import android.view.WindowManager;
 
 /**
  * 用于  更改状态栏的背景
- * @author Administrator
  *
+ * @author Administrator
  */
 public class SystemBarTintInvoke {
-	
+
 //	public abstract class SystemBarTintActivity extends BaseActivity {
 //		
 //		View rootView;
@@ -58,33 +58,33 @@ public class SystemBarTintInvoke {
 //
 //
 //	}
-	
-	public static void apply(Activity activity, int res,boolean fitsSystemWindows){
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-			setTranslucentStatus(activity,true);
-			SystemBarTintManager tintManager = new SystemBarTintManager(activity);
-			tintManager.setStatusBarTintEnabled(true);
-			tintManager.setStatusBarTintResource(res);
-		}
-		View rootView = ((ViewGroup)(activity.findViewById(android.R.id.content))).getChildAt(0); 
-		if(rootView!=null&&fitsSystemWindows){
-			rootView.setFitsSystemWindows(true);
-		}else if(!fitsSystemWindows){
-			rootView.setFitsSystemWindows(false);
-		}
-	}
-	
-	@TargetApi(19) 
-	private static void setTranslucentStatus(Activity activity,boolean on) {
-		Window win = activity.getWindow();
-		WindowManager.LayoutParams winParams = win.getAttributes();
-		final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-		if (on) {
-			winParams.flags |= bits;
-		} else {
-			winParams.flags &= ~bits;
-		}
-		win.setAttributes(winParams);
-	}
+
+    public static void apply(Activity activity, int res, boolean fitsSystemWindows) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            setTranslucentStatus(activity, true);
+            SystemBarTintManager tintManager = new SystemBarTintManager(activity);
+            tintManager.setStatusBarTintEnabled(true);
+            tintManager.setStatusBarTintResource(res);
+        }
+        View rootView = ((ViewGroup) (activity.findViewById(android.R.id.content))).getChildAt(0);
+        if (rootView != null && fitsSystemWindows) {
+            rootView.setFitsSystemWindows(true);
+        } else if (!fitsSystemWindows) {
+            rootView.setFitsSystemWindows(false);
+        }
+    }
+
+    @TargetApi(19)
+    private static void setTranslucentStatus(Activity activity, boolean on) {
+        Window win = activity.getWindow();
+        WindowManager.LayoutParams winParams = win.getAttributes();
+        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+        if (on) {
+            winParams.flags |= bits;
+        } else {
+            winParams.flags &= ~bits;
+        }
+        win.setAttributes(winParams);
+    }
 
 }

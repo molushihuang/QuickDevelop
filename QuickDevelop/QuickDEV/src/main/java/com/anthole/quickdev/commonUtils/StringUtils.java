@@ -1,5 +1,8 @@
 package com.anthole.quickdev.commonUtils;
 
+import android.content.ClipboardManager;
+import android.content.Context;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -326,5 +329,16 @@ public class StringUtils {
             ascii = ascii.replace(ascii_s.get(i),String.valueOf(ch));
         }
         return ascii;
+    }
+
+    /**
+     * 实现文本复制功能 add by wangqianzhou
+     *
+     * @param content
+     */
+    public static void copy(String content, Context context) {
+        // 得到剪贴板管理器
+        ClipboardManager cmb = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        cmb.setText(content);
     }
 }

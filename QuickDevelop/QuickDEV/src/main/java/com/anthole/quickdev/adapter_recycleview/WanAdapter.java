@@ -163,6 +163,9 @@ public abstract class WanAdapter<T> extends RecyclerView.Adapter<WanViewHolder> 
 	{
 		mDatas.remove(index);
 		notifyItemRemoved(index);
+        if(index != mDatas.size()){      // 这个判断的意义就是如果移除的是最后一个，就不用管它了
+            notifyItemRangeChanged(index, mDatas.size() - index);// 加这个是为了在移除的时候防止错乱和崩溃
+        }
 	}
 
 	public void replaceAll(List<T> elem)
